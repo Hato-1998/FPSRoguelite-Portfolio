@@ -18,7 +18,7 @@
 | 길찾기 | `UFPSRFlowFieldSubsystem` / `UFPSRFlowFieldComputer` | 월드 연결과 표면 그래프 계산의 분리 |
 | 콘텐츠 정의 | 무기·카드·상점 `DataAsset` | 공통 기본값과 저작 데이터 |
 
-`AFPSRPlayerState` 생성자에서 ShopComponent와 ASC를 생성하고, ASC는 복제 및 Mixed 모드로 설정합니다. [실제 소유 관계 발췌](../samples/ownership.md)
+`AFPSRPlayerState` 생성자에서 ShopComponent와 ASC를 생성하고, ASC는 복제 및 Mixed 모드로 설정합니다.
 
 ## 데이터 정의와 현재 상태를 구분한다
 
@@ -39,7 +39,7 @@ flowchart TD
 
 ## 서버 판정과 UI의 경계
 
-상점 UI는 구매 의사를 RPC로 전달합니다. 서버는 그 요청이 현재 세션에서 유효한지 판단하고, 카드 적용과 지갑 변경 뒤 Snapshot을 갱신합니다. Snapshot은 소유자에게만 복제되고, `OnRep_Snapshot`은 UI용 이벤트를 발생시킵니다. 호스트는 서버 쪽 `Publish`의 이벤트를 받습니다. [상점 코드](../samples/shop-transactions.md)
+상점 UI는 구매 의사를 RPC로 전달합니다. 서버는 그 요청이 현재 세션에서 유효한지 판단하고, 카드 적용과 지갑 변경 뒤 Snapshot을 갱신합니다. Snapshot은 소유자에게만 복제되고, `OnRep_Snapshot`은 UI용 이벤트를 발생시킵니다. 호스트는 서버 쪽 `Publish`의 이벤트를 받습니다.
 
 이는 UI가 표시한 가격이나 카드 포인터를 판정의 정본으로 삼지 않기 위한 경계입니다. 서버의 현재 오퍼와 카탈로그가 실제 거래를 결정합니다.
 
@@ -47,7 +47,7 @@ flowchart TD
 
 일반 적은 `AFPSREnemyBase`와 경량 HealthComponent를 중심으로 구성합니다. 적이 많아질수록 반복되는 객체 비용을 줄이려는 선택입니다. 반면 플레이어와 특수 적은 능력·태그·효과를 다루는 GAS의 이점을 활용합니다.
 
-일반 적 생성자에는 `bAlwaysRelevant = true`가 있습니다. 같은 적을 모든 참가자에게 보여 주려는 선택인 동시에, 수가 늘면 복제 비용을 검증해야 하는 지점입니다. [일반 적 생성자 발췌](../samples/ownership.md)
+일반 적은 기본적으로 항상 복제 대상으로 간주하도록 설정합니다. 같은 적을 모든 참가자에게 보여 주려는 선택인 동시에, 수가 늘면 복제 비용을 검증해야 하는 지점입니다.
 
 ## 모듈과 확장 범위
 
