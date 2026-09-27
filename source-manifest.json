@@ -1,0 +1,247 @@
+{
+  "source_commit": "a6f03809b0fc3a0afdde3495e0e54f42742d4982",
+  "snapshot_date": "2026-09-27",
+  "normalization": "UTF-8, LF; code lines otherwise unchanged",
+  "excerpts": [
+    {
+      "sample": "samples/enemy-pool.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSREnemyDormantPool.cpp",
+      "start_line": 6,
+      "end_line": 17,
+      "sha256": "480ad59821e129b95dd961270e10d4d5eb190a9fc8a790dea4b0fd38e3beee1b"
+    },
+    {
+      "sample": "samples/enemy-pool.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSREnemyDormantPool.cpp",
+      "start_line": 19,
+      "end_line": 49,
+      "sha256": "bfc8618c77eee0d5f5468e76649dae4c0a7255b7b147c0784f720f4ae8567514"
+    },
+    {
+      "sample": "samples/enemy-pool.md",
+      "block_index": 2,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSREnemyDormantPool.cpp",
+      "start_line": 51,
+      "end_line": 93,
+      "sha256": "e78c04fa8ab339c76a154f7629dddaadb83d1a006c10bcc56afd56545428eaad"
+    },
+    {
+      "sample": "samples/enemy-pool.md",
+      "block_index": 3,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSREnemyDormantPool.cpp",
+      "start_line": 95,
+      "end_line": 103,
+      "sha256": "37803be24c62b488f8a12a43adf863adc5d290fc35a58a8d4e9c66a376eab3d7"
+    },
+    {
+      "sample": "samples/flow-field.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSRFlowFieldComputer.cpp",
+      "start_line": 215,
+      "end_line": 303,
+      "sha256": "bd85f36da40454a682933edca3fec1f7686edb1eef924c7adcc4d59abaf50756"
+    },
+    {
+      "sample": "samples/flow-field.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSRFlowFieldComputer.cpp",
+      "start_line": 464,
+      "end_line": 701,
+      "sha256": "acf894ad12e838e2fe327f44dddd5a50301074e314980c0dfb4f0baa92321d94"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 25,
+      "end_line": 32,
+      "sha256": "db8db3ae00393f57515a6fe4bca10ab64ca4db92152b1bb7d4747bc473a65857"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 39,
+      "end_line": 44,
+      "sha256": "9519abde924268091a052ae9f2b83d3ca870286b26bab82326fa3fa32c30ae6b"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 2,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 72,
+      "end_line": 84,
+      "sha256": "189891277e113be4171afcf7b5a36b2745df0a3f97333ad5c7b19dc872f72642"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 3,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 86,
+      "end_line": 94,
+      "sha256": "9bb95b6e218de3b8327891f531d19b1a7232bcedaeb5a6599511849933fd494f"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 4,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 96,
+      "end_line": 116,
+      "sha256": "fd72d6a202256a1c8fba68c31e5fd9924b611428d56405cc48f8979dfce95000"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 5,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 181,
+      "end_line": 190,
+      "sha256": "e1416a8bdfee3abee8140f44d0531b4740f0a1be4331e2b61a158bdaf6ecb685"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 6,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 192,
+      "end_line": 195,
+      "sha256": "6b53d5b83e68ab890157c04181cf8cefc2b1e55ce0f49275c4853b4f651edf43"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 7,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 197,
+      "end_line": 200,
+      "sha256": "5855aee346a4d44dd17e5a0c9f52e5b8aa0842b080d72a977b88ec72468356bd"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 8,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 202,
+      "end_line": 230,
+      "sha256": "d47e4183c1f2e5fa8748e944796dc8c8338fd667b2f29e50b5dcfd6173641c57"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 9,
+      "source_path": "Source/FPSRoguelite/Private/Economy/FPSRShopComponent.cpp",
+      "start_line": 156,
+      "end_line": 164,
+      "sha256": "1eff5f1fa84abc6c9bd3c2657970c9e3237598c6f3952953514a577f250d565d"
+    },
+    {
+      "sample": "samples/shop-transactions.md",
+      "block_index": 10,
+      "source_path": "Source/FPSRoguelite/Public/Economy/FPSRShopComponent.h",
+      "start_line": 14,
+      "end_line": 32,
+      "sha256": "01ebbf7f499945230b3f8694d849048b499977306952bf1f08f2b90c3f67a2fa"
+    },
+    {
+      "sample": "samples/card-effects.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Public/Card/FPSRCardEffect.h",
+      "start_line": 28,
+      "end_line": 102,
+      "sha256": "9bcabf779c44764f0431b28fe0877da871fbe95b2b722193eda58c786b28ccbe"
+    },
+    {
+      "sample": "samples/card-effects.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Card/FPSRCardSubsystem.cpp",
+      "start_line": 351,
+      "end_line": 431,
+      "sha256": "86402865c6d9946af6fcb1fd067989e30d71bcb2b1dfe53e8cdeb8c4ee513eec"
+    },
+    {
+      "sample": "samples/card-effects.md",
+      "block_index": 2,
+      "source_path": "Source/FPSRoguelite/Private/Card/FPSRCardSubsystem.cpp",
+      "start_line": 52,
+      "end_line": 66,
+      "sha256": "174b78bf64ad31541b6b4189362a0a0e962c0df5089f4e8d0d2c336b891b6843"
+    },
+    {
+      "sample": "samples/weapon-stats.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Private/Weapon/FPSRWeaponInstance.cpp",
+      "start_line": 274,
+      "end_line": 277,
+      "sha256": "d018688ae00d75577d40eaa281f5326ca9527109681e4916fcc37ae81ffbdac9"
+    },
+    {
+      "sample": "samples/weapon-stats.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Weapon/FPSRWeaponInstance.cpp",
+      "start_line": 279,
+      "end_line": 283,
+      "sha256": "e50a8e356e6e70849c7092cd5e1c1011174f124c2a770e45653fe420eb7af297"
+    },
+    {
+      "sample": "samples/weapon-stats.md",
+      "block_index": 2,
+      "source_path": "Source/FPSRoguelite/Private/Weapon/FPSRWeaponInstance.cpp",
+      "start_line": 285,
+      "end_line": 289,
+      "sha256": "1e3cc6949fb207ed4250fd668acf3280627757cca5007b5d7ccab0a056e8df71"
+    },
+    {
+      "sample": "samples/weapon-stats.md",
+      "block_index": 3,
+      "source_path": "Source/FPSRoguelite/Private/Weapon/FPSRWeaponInstance.cpp",
+      "start_line": 304,
+      "end_line": 312,
+      "sha256": "507ea76774e9d871c276feaf8ea57c9ab9a259081557e82ab980f1c013848035"
+    },
+    {
+      "sample": "samples/weapon-stats.md",
+      "block_index": 4,
+      "source_path": "Source/FPSRoguelite/Private/Weapon/FPSRWeaponInstance.cpp",
+      "start_line": 330,
+      "end_line": 420,
+      "sha256": "d13a39682f8c6819db4ccb9d2a1c6bca7964d31e19d1ee83d747b963c3cd64a5"
+    },
+    {
+      "sample": "samples/ownership.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Private/Core/FPSRPlayerState.cpp",
+      "start_line": 24,
+      "end_line": 36,
+      "sha256": "1de81c5162a37b2f9225715eb2baa0d4b4f77c62943cb4917bdd3bfd6c257c32"
+    },
+    {
+      "sample": "samples/ownership.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Enemy/FPSREnemyBase.cpp",
+      "start_line": 73,
+      "end_line": 131,
+      "sha256": "fe2fe53d13e577c12abdb33afa2d2b25f404c380be7f37e0bf38e8bd33f6f5fc"
+    },
+    {
+      "sample": "samples/regression-tests.md",
+      "block_index": 0,
+      "source_path": "Source/FPSRoguelite/Private/Tests/FPSRShopTransactionsTest.cpp",
+      "start_line": 103,
+      "end_line": 125,
+      "sha256": "2b70439d022df32dd2c9ef842e3ee728534730b50e2767f23e4f4f93021dc4a5"
+    },
+    {
+      "sample": "samples/regression-tests.md",
+      "block_index": 1,
+      "source_path": "Source/FPSRoguelite/Private/Tests/FPSREnemyDormantPoolTest.cpp",
+      "start_line": 98,
+      "end_line": 116,
+      "sha256": "ba9fd0ab6e368a70657074e2af10d2fa933a9e2760b26a2448768f4518ab51b3"
+    },
+    {
+      "sample": "samples/regression-tests.md",
+      "block_index": 2,
+      "source_path": "Source/FPSRoguelite/Private/Tests/FPSRFlowFieldTowerPathTest.cpp",
+      "start_line": 61,
+      "end_line": 79,
+      "sha256": "e2304f9fce9cfc7731b7fd101c40af0f2781fcb37a105f31805d2b8d811cf008"
+    }
+  ]
+}
