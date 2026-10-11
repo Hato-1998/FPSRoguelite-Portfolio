@@ -1,60 +1,51 @@
-# 책임과 수명주기로 나눈 구조
+# 책임과 수명주기로 나눈 아키텍처
 
-[← 포트폴리오](../README.md)
+[← 포트폴리오](../README.md) · [현재 상태](08-current-state.md)
 
-이 프로젝트의 핵심은 모든 기능을 한 객체에 넣는 대신, **플레이어 개인 상태·월드의 공용 계산·개별 무기 상태·콘텐츠 정의**를 나누는 데 있습니다. 아래는 현재 코드에서 확인한 경계이며, 전체 프로젝트가 완전히 분리됐다는 평가는 아닙니다.
+이 프로젝트는 **런의 공용 규칙, 개인 상태, 이동하는 자산, 반복되는 적 계산**을 분리합니다. 객체의 위치보다 중요한 것은 누가 정본을 갖고 언제 변경할 수 있는가입니다. 아래는 현재 소스에서 확인한 구조이며 최신 미커밋 성장 변경의 실행 완료를 뜻하지 않습니다.
 
 ## 주요 책임
 
-| 계층 | 주요 타입 | 책임과 수명 |
+| 경계 | 대표 구성 | 책임 |
 |---|---|---|
-| 게임 규칙 | `AFPSRGameMode` | 서버의 런 진행 규칙과 진입 조정 |
-| 공유 런 상태 | `AFPSRGameState` | 런 시작 봉인·종료와 공유 상태 |
-| 개인 상태 | `AFPSRPlayerState` | ASC, 개인 코인, 획득 카드 기록, 상점 컴포넌트 |
-| 개인 거래 | `UFPSRShopComponent` | 상점 세션, 제시 카드, revision, 구매 검증 |
-| 무기 상태 | `UFPSRWeaponInstance` | 원본 정의 참조, 탄약·장전·수정치·행동 조각, 계산 캐시 |
-| 카드 서비스 | `UFPSRCardSubsystem` | 추첨과 서버의 효과 적용 |
-| 적 스폰 | `UFPSREnemySpawnSubsystem` | 풀 취득·반납과 스폰 수 관리 |
-| 길찾기 | `UFPSRFlowFieldSubsystem` / `UFPSRFlowFieldComputer` | 월드 연결과 표면 그래프 계산의 분리 |
-| 콘텐츠 정의 | 무기·카드·상점 `DataAsset` | 공통 기본값과 저작 데이터 |
+| 서버 런 규칙 | GameMode, Director | 진입·스폰·런 진행 조정 |
+| 공유 런 상태 | GameState | 참가자 봉인, 런 식별과 종료, 공유 시계·진행 |
+| 개인 상태 | PlayerState | ASC, 개인 지갑, 참가 자격과 개인 빌드 |
+| 장착 상태 | WeaponInventoryComponent | 슬롯·현재 무기, 무기 상태 변경 요청과 복제 조정 |
+| 무기 인스턴스 | WeaponInstance | 정의 참조, 탄약·WSU·Perk와 해당 무기 상태 |
+| 월드 자산 정본 | LootWorldSubsystem | 자산 소유 위치, revision, 변경 허가와 거래 예산 |
+| 빌드 이벤트 | CombatItemRuntime, CombatEventSubsystem | 이벤트 규칙, 지연 효과와 작업 제한 |
+| 적 운영 | EnemySpawnSubsystem | 풀 취득·반납, 스폰 지점과 생성 예산 |
+| 공유 탐색 | FlowFieldSubsystem, FlowFieldComputer | 월드·베이크 연결과 표면 그래프 계산 |
+| 콘텐츠 정의 | 무기·아이템·런 DataAsset | 공유 기본값과 저작 계약 |
 
-`AFPSRPlayerState` 생성자에서 ShopComponent와 ASC를 생성하고, ASC는 복제 및 Mixed 모드로 설정합니다.
+예전 카드 관련 타입명은 일부 내부 데이터·효과 기반에 남아 있습니다. 타입 이름이 남았다는 이유로 화면형 카드 상점이나 상시 전 무기 피해 증가가 현행 게임 규칙이 되지는 않습니다.
 
-## 데이터 정의와 현재 상태를 구분한다
+## 정의, 상태 값, 표현을 구분한다
 
 ```mermaid
 flowchart TD
-    PS["PlayerState"] -->|"소유"| Shop["ShopComponent"]
-    PS -->|"소유"| ASC["AbilitySystemComponent"]
-    Pawn["Pawn"] -->|"소유"| Inventory["WeaponInventoryComponent"]
-    Inventory -->|"런타임 인스턴스"| Instance["WeaponInstance"]
-    Instance -->|"참조"| WeaponDA["WeaponDataAsset"]
-    CardDA["CardDataAsset"] -->|"Instanced 효과 목록"| Effects["CardEffect 파생 객체"]
-    Cards["CardSubsystem"] -->|"문맥을 구성하여 적용"| Effects
-    Effects -->|"플레이어·무기에 반영"| PS
-    Effects -->|"플레이어·무기에 반영"| Instance
+    DA["DataAsset 정의"] --> Instance["장착 무기 인스턴스"]
+    DA --> Value["월드 자산 상태 값"]
+    Ledger["서버 전리품 정본"] -->|"소유권·revision 관리"| Value
+    Inventory["Pawn의 무기 Inventory"] -->|"장착"| Instance
+    Ledger -->|"허가된 거래"| Inventory
+    PS["PlayerState: ASC·지갑"] --> Build["플레이어 Combat Item 상태"]
+    Build --> Events["이벤트 평가·효과 큐"]
+    Instance --> Rep["복제 입력·선택 상태"]
+    Rep --> Visual["HUD·FP/TP 표현"]
 ```
 
-같은 무기 정의를 사용하는 두 플레이어라도 탄약과 업그레이드는 다를 수 있습니다. 따라서 기본 정의를 공유하는 DataAsset과 플레이 중 변경되는 WeaponInstance를 구분합니다. 반대로 같은 카드 효과 로직을 매 플레이어마다 새로 작성할 필요는 없어, 효과는 공유 정의를 읽고 서버가 만든 적용 문맥을 받습니다.
+무기는 장착 중 UObject로 존재하고 바닥에서는 Pickup 액터로 표현됩니다. 이 둘을 동일한 UObject의 이동으로 간주하지 않습니다. 자산의 정체성과 보존할 상태 값을 유지하면서 현재 위치에 맞는 표현을 준비합니다. 재화와 소유권은 서버 정본이 결정하고 UI는 결과를 보여 줍니다.
 
-## 서버 판정과 UI의 경계
+## 높은 빈도의 계산과 드문 변경
 
-상점 UI는 구매 의사를 RPC로 전달합니다. 서버는 그 요청이 현재 세션에서 유효한지 판단하고, 카드 적용과 지갑 변경 뒤 Snapshot을 갱신합니다. Snapshot은 소유자에게만 복제되고, `OnRep_Snapshot`은 UI용 이벤트를 발생시킵니다. 호스트는 서버 쪽 `Publish`의 이벤트를 받습니다.
+스웜 추적은 공유 거리장을 샘플링하는 반복 경로입니다. 무기 교환·WSU 투자·아이템 소유 변경은 빈도가 낮지만 실패했을 때 손실이 큽니다. 전자는 개체당 비용을 줄이고 후자는 준비·검증·커밋을 명확히 합니다.
 
-이는 UI가 표시한 가격이나 카드 포인터를 판정의 정본으로 삼지 않기 위한 경계입니다. 서버의 현재 오퍼와 카탈로그가 실제 거래를 결정합니다.
+일반 적은 경량 HealthComponent와 비-GE 데미지를 사용합니다. 플레이어·엘리트·보스는 GAS를 활용합니다. 같은 적을 모든 참가자에게 복제하는 계약 때문에 서버 계산만 줄여서는 전체 부하가 해결되지 않습니다.
 
-## 일반 적과 GAS의 경계
+## 기반 기술과 검증 경계
 
-일반 적은 `AFPSREnemyBase`와 경량 HealthComponent를 중심으로 구성합니다. 적이 많아질수록 반복되는 객체 비용을 줄이려는 선택입니다. 반면 플레이어와 특수 적은 능력·태그·효과를 다루는 GAS의 이점을 활용합니다.
+Runtime과 Editor 모듈을 분리하고 엔진의 UObject·Subsystem·NetCore·GAS·Enhanced Input·CommonUI를 사용합니다. 프로젝트 코드가 추가하는 것은 공유 탐색, 자산 거래, 무기 성장, 전투 이벤트 예산과 콘텐츠 검증입니다. Push Model dirty 표시는 구현 수단이며 실제 패키지 활성화와 비용은 설정·빌드·실측으로 확인해야 합니다.
 
-일반 적은 기본적으로 항상 복제 대상으로 간주하도록 설정합니다. 같은 적을 모든 참가자에게 보여 주려는 선택인 동시에, 수가 늘면 복제 비용을 검증해야 하는 지점입니다.
-
-## 모듈과 확장 범위
-
-프로젝트는 Runtime 모듈 `FPSRoguelite`와 Editor 모듈 `FPSRogueliteEditor`를 구분합니다. 런타임은 GAS·EnhancedInput·NetCore·CommonUI·OnlineSubsystem 등을 사용합니다. 에디터의 데이터 검증과 저작 기능은 게임플레이 규칙과 구분되는 영역입니다.
-
-외부 반동 및 1인칭 표현 솔루션의 기능은 이 저장소에서 구현 성과로 주장하지 않습니다. 이 문서는 엔진·외부 솔루션과 프로젝트 코드 사이에서 누가 무엇을 책임지는지 설명합니다.
-
-## 남은 설계 비용
-
-이 분리는 의존성을 없애지는 않습니다. 예를 들어 카드 서비스는 PlayerState, ASC, Inventory를 함께 알아야 하고, 무기 캐시는 전체 무기 수정치가 바뀌어도 무효화돼야 합니다. 타입 수가 늘어나는 비용과 함께, 해당 변경 경로를 테스트하고 유지해야 합니다.
+런 종료 중 콜백, 선택 상태와 인스턴스의 복제 도착 순서, 풀 재사용 이후 지연 효과가 경계의 위험입니다. [거래 사례](03-authoritative-shop.md)와 [전투 이벤트 사례](07-combat-events.md)는 이 문제를 다룹니다.
