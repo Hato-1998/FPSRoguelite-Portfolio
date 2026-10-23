@@ -6,9 +6,9 @@
 
 **개인 프로젝트의 프로그래밍 담당**으로 게임 제약에 맞는 설계 판단, C++ 구현 통합, 데이터·UI 연결과 검증을 수행합니다. 다수의 적을 위한 공유 길찾기·풀링, 서버가 판정하는 구역 복구, 무기 인스턴스 성장과 공급, 전투 이벤트, 복제를 늘리지 않는 관전 표현을 프로젝트에 맞게 구현하고, 엔진 코드까지 추적해 실제 플레이 결함을 해결한 과정을 소개합니다.
 
-개발 과정에는 AI 에이전트의 구현·검토 지원을 사용합니다. 작업 범위와 게임 규칙의 결정, 변경 통합, 검증 결과의 판단과 실제 플레이 확인은 프로젝트 담당자의 책임으로 운영합니다.
+개발 과정에는 AI 에이전트의 구현·검토 지원을 사용합니다. 작업 범위와 게임 규칙의 결정, 변경 통합, 검증 결과의 판단과 실제 플레이 확인은 프로젝트 담당자의 책임으로 운영합니다. 구현을 위임하는 작업 명세, 고위험 변경의 독립 계획·병합 전 검토, "작업자 보고는 주장"이라는 검증 규율과 실제로 결과를 바꾼 검토 사례는 [AI 협업 개발 프로세스](docs/12-ai-assisted-workflow.md)에 정리했습니다.
 
-`C++` · `Gameplay Ability System` · `Server Authority` · `Push Model` · `Flow Field` · `Data Assets` · `CommonUI` · `Automation Framework`
+`C++` · `Gameplay Ability System` · `Server Authority` · `Push Model` · `Flow Field` · `Data Assets` · `CommonUI` · `Automation Framework` · `AI-assisted Development`
 
 **기준일: 2026-10-23.** 문서와 다이어그램을 공개하는 프로그래밍 포트폴리오입니다. [제작·공개 범위](NOTICE.md) · [구현 현황](docs/08-current-state.md) · [검증 근거](docs/05-verification.md)
 
@@ -30,6 +30,7 @@
 | 연쇄 효과가 폭주하거나 재사용된 적에게 적용되는 것을 어떻게 막을까? | 이벤트 계보, 세대 제한, 수명 식별, 소유자별 큐와 작업 예산 | [전투 이벤트](docs/07-combat-events.md) |
 | 조작·화면이 네트워크 판정을 침범하지 않게 하려면? | 엔진 이동 예측 확장, 프록시 표현, 로비 확정 선택과 로컬 미리보기 분리 | [예측 이동](docs/09-movement-lobby-ui.md) |
 | 쓰러진 플레이어가 아군을 1인칭으로 보게 하면서 복제를 늘리지 않으려면? | 대상 전환만 서버 검증, 팔·무기·탄 표현은 기존 복제 상태로 로컬 재생 | [다운 관전](docs/11-spectate-network-presentation.md) |
+| 1인 개발에서 AI가 만든 변경을 어떻게 믿을 수 있게 할까? | 역할 분리, 고위험 3종에만 독립 G1/G2 게이트, 빌드 로그·기준선 대조로 직접 검증, 결정 기록을 다음 계획의 입력으로 사용 | [AI 협업 프로세스](docs/12-ai-assisted-workflow.md) |
 
 [아키텍처](docs/01-architecture.md) · [설계 선택과 비용](docs/06-design-decisions.md)
 
@@ -64,4 +65,4 @@ flowchart LR
 
 각 사례는 설계 승인, 코드 구현, 실행 검증과 미검증 범위를 구분해 적었습니다. 데모 완성은 기능 범위의 완성을 뜻하며, 4인 원격 네트워크·장시간 성능처럼 기록이 없는 항목은 [현황표](docs/08-current-state.md)와 [검증 문서](docs/05-verification.md)에 남은 범위로 표시했습니다.
 
-**English overview:** A documentation-only programming portfolio for *ART: Arcade Reclamation Team* (codename FPSRoguelite), an Unreal Engine 1-4 player co-op FPS roguelite horde shooter. The public demo was completed on 2026-10-23; the Steam store page is under review. Case studies cover shared navigation and enemy pooling, server-authoritative zone restoration, weapon-instance growth and currency-free supply, bounded combat events, predicted movement, and non-replicated first-person spectating. Design, implementation and verified behavior are distinguished explicitly. No source code or assets are distributed.
+**English overview:** A documentation-only programming portfolio for *ART: Arcade Reclamation Team* (codename FPSRoguelite), an Unreal Engine 1-4 player co-op FPS roguelite horde shooter. The public demo was completed on 2026-10-23; the Steam store page is under review. Case studies cover shared navigation and enemy pooling, server-authoritative zone restoration, weapon-instance growth and currency-free supply, bounded combat events, predicted movement, and non-replicated first-person spectating. A separate document describes the AI-assisted workflow: delegated implementation under written specs, independent plan and pre-merge reviews for high-risk changes, and direct verification of every agent report. Design, implementation and verified behavior are distinguished explicitly. No source code or assets are distributed.
