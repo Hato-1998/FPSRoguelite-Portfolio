@@ -1,68 +1,49 @@
-# ART: Arcade Reclamation Team · Gameplay Programming Portfolio
+# ProjectEGO · Gameplay Programming Portfolio
 
-**Unreal Engine 5.8로 만든 1~4인 협동 FPS 로그라이트 호드 슈터** (개발 코드명 FPSRoguelite)
+**Unreal Engine 5.8 · C++ · GAS · 2026.05 ~ 진행 중 · 리포 이름 FPSRoguelite**
 
-오염된 픽셀 아케이드 세계에 투입된 복구팀이 되어, 오염된 구역을 하나씩 되찾으며 몰려오는 적을 막고 20:00에 나타나는 최종 보스를 처치하는 게임입니다. **2026-10-23 공개 데모를 완성했으며 Steam 스토어 페이지는 심사 중입니다.** 데모 한 판은 런 시작 → 전투·파밍·무기 성장 → 20:00 최종 보스 → 승리/패배 → 결산으로 이어지며 솔로부터 4인 협동까지 지원합니다.
+ProjectEGO는 개인 프로젝트입니다. 이 저장소는 소스 코드를 공개하지 않고, 프로그래밍 구조와 설계 판단을 문서와 다이어그램으로만 설명합니다. 기준일은 **2026-11-18**입니다.
 
-**개인 프로젝트의 프로그래밍 담당**으로 게임 제약에 맞는 설계 판단, C++ 구현 통합, 데이터·UI 연결과 검증을 수행합니다. 다수의 적을 위한 공유 길찾기·풀링, 서버가 판정하는 구역 복구, 무기 인스턴스 성장과 공급, 전투 이벤트, 복제를 늘리지 않는 관전 표현을 프로젝트에 맞게 구현하고, 엔진 코드까지 추적해 실제 플레이 결함을 해결한 과정을 소개합니다.
+## 프로젝트 소개
 
-개발 과정에는 AI 에이전트의 구현·검토 지원을 사용합니다. 작업 범위와 게임 규칙의 결정, 변경 통합, 검증 결과의 판단과 실제 플레이 확인은 프로젝트 담당자의 책임으로 운영합니다. 구현을 위임하는 작업 명세, 고위험 변경의 독립 계획·병합 전 검토, "작업자 보고는 주장"이라는 검증 규율과 실제로 결과를 바꾼 검토 사례는 [AI 협업 개발 프로세스](docs/12-ai-assisted-workflow.md)에 정리했습니다.
+**현재 단계 (2026.11 ~)**
 
-`C++` · `Gameplay Ability System` · `Server Authority` · `Push Model` · `Flow Field` · `Data Assets` · `CommonUI` · `Automation Framework` · `AI-assisted Development`
+- 1~4인이 하나의 신체를 공유하는 협동 FPS
+- 손에 든 무기의 탄창이 비면 다른 플레이어에게 무작위로 조종이 넘어감
+- 기다리는 플레이어는 머리 위 고리에 떠 있는 자기 무기로 계속 사격
+- 현재 2인 최소 통합 단계
 
-**기준일: 2026-10-23.** 문서와 다이어그램을 공개하는 프로그래밍 포트폴리오입니다. [제작·공개 범위](NOTICE.md) · [구현 현황](docs/08-current-state.md) · [검증 근거](docs/05-verification.md)
+**이전 단계 (2026.05 ~ 11)**
 
-## 먼저 볼 세 가지 사례
+- 협동 스타일 랭크 FPS로 프로토타입을 진행
+- 핵심 재미를 먼저 검증하지 않고 시스템을 넓혀 프로토타입에 머묾
+- 2026.11에 범위를 하나의 기믹으로 좁혀 재정의. 이동·사격 감각과 엔진 기반 코드는 이어받음
 
-| 사례 | 대표 결과와 읽을 지점 |
-|---|---|
-| [1. 낙하 경계에서 슬라이드가 멈추는 결함 해결](docs/10-debugging-case.md) | 진입 각도에 따른 증상을 엔진의 앉기·낙하 분기로 설명하고 기존 설정 변경으로 해결. 당시 풀 리빌드·자동화 58/58과 사용자 PIE 네 가지 동작 확인 |
-| [2. 다수의 적을 위한 공유 길찾기와 풀](docs/02-swarm-pathfinding.md) | 높이 표면·단방향 낙하를 공유 거리장에 반영하고 정확한 클래스별 풀로 재사용. 과거 패키지 측정에서 약 890마리 조건의 솔로/로컬 4인 호스트 비용을 비교해 CPU 병목 확인 |
-| [3. 구역 복구 체인과 서버 권위 상태](docs/03-zone-restoration.md) | 런의 1차 목표를 서버 판정·로컬 표현으로 나눠 구현. 멀티플레이에서만 보이던 구역 색 깜빡임을 "상태를 안다"와 "런이 시작됐다"의 분리로 해결하고 독립 검토·자동화 58/58·사용자 멀티 확인 |
+**규모와 역할**
 
-이동 사례는 **문제 재현과 원인 추적**, 스웜 사례는 **반복 비용과 측정 해석**, 구역 사례는 **서버 상태와 표현의 경계**를 중심으로 읽을 수 있습니다.
+- 커밋 3,323개(2026-11-18), 자동화 시험 944/944 통과(2026-11-14)
+- 방향·설계 판단과 검증을 맡고, 구현은 AI 에이전트에 위임합니다([07](docs/07-ai-assisted-workflow.md))
 
-## 이어서 볼 구현 사례
+## 이전 단계와 현재 단계의 관계
 
-| 문제 | 프로젝트의 선택 | 상세 |
-|---|---|---|
-| 화폐 없이 전투만으로 무기가 강해지게 하려면? | 피해를 낸 무기 인스턴스에 경험치 귀속, 5레벨마다 서버가 Perk 자동 장착, 처치·구역 복구·미션이 곧 무기 공급 | [무기 성장](docs/04-card-weapon-design.md) |
-| 연쇄 효과가 폭주하거나 재사용된 적에게 적용되는 것을 어떻게 막을까? | 이벤트 계보, 세대 제한, 수명 식별, 소유자별 큐와 작업 예산 | [전투 이벤트](docs/07-combat-events.md) |
-| 조작·화면이 네트워크 판정을 침범하지 않게 하려면? | 엔진 이동 예측 확장, 프록시 표현, 로비 확정 선택과 로컬 미리보기 분리 | [예측 이동](docs/09-movement-lobby-ui.md) |
-| 쓰러진 플레이어가 아군을 1인칭으로 보게 하면서 복제를 늘리지 않으려면? | 대상 전환만 서버 검증, 팔·무기·탄 표현은 기존 복제 상태로 로컬 재생 | [다운 관전](docs/11-spectate-network-presentation.md) |
-| 1인 개발에서 AI가 만든 변경을 어떻게 믿을 수 있게 할까? | 역할 분리, 고위험 3종에만 독립 G1/G2 게이트, 빌드 로그·기준선 대조로 직접 검증, 결정 기록을 다음 계획의 입력으로 사용 | [AI 협업 프로세스](docs/12-ai-assisted-workflow.md) |
+현재 단계는 이전 단계를 버리고 새로 시작한 것이 아니라, 이전 단계에서 검증한 부분을 이어받은 것입니다. 이동 상태의 단일 소유(01), 판정과 연출의 분리(02), 방 세이브 보호(05), 디버깅·측정 규율(06)은 이전 단계에서 만들어 현재 단계에서도 쓰는 설계입니다. 데이터 주도 파츠 빌드(03)는 이전 단계의 시스템이며 현재 단계에서는 꺼 둡니다. 공유 신체의 소유권(04)은 현재 단계에서 새로 설계하고 있는 부분입니다.
 
-[아키텍처](docs/01-architecture.md) · [설계 선택과 비용](docs/06-design-decisions.md)
+## 문서 목록
 
-## 게임의 설계 전제
+| 문서 | 문제 | 선택 | 단계 |
+|---|---|---|---|
+| [01 이동 상태의 단일 소유](docs/01-movement-state-ownership.md) | 새 이동 상태가 생길 때마다 사격·애님·HUD 코드가 함께 바뀜 | 무브먼트 컴포넌트 하나가 상태를 결정하고 다른 시스템은 질의 함수로만 읽음 | 이전, 현재로 이어짐 |
+| [02 판정과 연출의 책임 분리](docs/02-fire-authority-presentation.md) | 서버가 판정을 확정하되 쏘는 사람은 즉시 반응해야 함 | 사수의 발사 연출은 예측으로 즉시, 팀원은 서버 확정으로. 명중은 예측하지 않음 | 이전, 현재로 이어짐 |
+| [03 데이터 주도 파츠 빌드](docs/03-data-driven-parts.md) | 총 1정의 성장을 파츠로 표현하고 수치를 반복 조정 | 정의는 후보 축·효과만 갖고 (정의, 등급, 씨앗)에서 결정적으로 풀어 모든 기기가 같은 값 | 이전(현재 쓰지 않음) |
+| [04 공유 신체의 소유권](docs/04-shared-body-ownership.md) | 여러 참가자가 하나의 몸을 번갈아 조종하되 각자의 시선·무기·HUD는 유지 | 참가자는 자기 Pawn을 계속 소유하고 서버는 신체의 운전자만 교체. 측정으로 진행 여부 판정 | 현재(진행 중) |
+| [05 방 세이브 보호](docs/05-room-save-protection.md) | 저장 실패 뒤의 리셋이 방 상태를 버리는 결함 | 읽지 못한 슬롯에는 쓰지 않고 원본을 검증된 격리 사본으로 보존. 보존 실패 시 쓰기 차단 | 이전, 현재로 이어짐 |
+| [06 디버깅과 성능 측정](docs/06-debugging-and-measurement.md) | 패키지에서만 나는 GC 크래시, 절벽 진입 시 슬라이딩 종료, 렌더 비용, 스웜 규모 | 재현 조건을 고정하고 측정으로 판단. 폐기한 구조는 단독 컴파일 등으로 안전하게 삭제 | 이전, 현재로 이어짐 |
+| [07 AI 협업 개발 체계](docs/07-ai-assisted-workflow.md) | 구현을 AI에 위임하면서 결과를 믿을 수 있어야 함 | 감독·주 작업자·하위 작업자의 3층, 고위험 변경은 별도 인스턴스의 독립 검토를 거쳐야 병합 | 이전부터 현재까지 |
 
-- 한 판은 한 아레나입니다. **20:00에 최종 보스가 등장**하며 보스 처치가 승리입니다. 20:00은 강제 종료가 아니고 이후 압박이 계속 증가합니다. 데모는 0~6분·6~14분·14~20분의 3막으로 압박을 나눕니다.
-- 런의 1차 목표는 **구역 복구**입니다. 맵은 약 60m 타일 구역의 조합이며, 복구 장치로 오염 구역을 되찾아 보스전 공간을 넓힙니다. 적은 오염 구역에서 나옵니다.
-- 직접 조준, 약점, 반동, 슬라이드와 이동이 전투의 중심입니다. 기본 점프는 한 번이며 추가 공중 점프는 Combat Item입니다.
-- 일반 적은 경량 체력·풀 액터·공유 Flow Field를 사용하고 외형은 방향별 픽셀 스프라이트입니다. GAS(Gameplay Ability System: 능력·효과 프레임워크)의 적용 범위는 플레이어·엘리트·보스입니다.
-- **적 1000+는 스트레스 목표**입니다. 실제 동시 수는 Director와 성능 예산에 따라 달라집니다. 해당 부하의 성능 달성을 주장하지 않습니다.
-- 성장의 중심은 무기입니다. 무기는 그 무기로 준 피해만큼 레벨이 오르고(WSU: Weapon Stat Upgrade), 5레벨마다 해당 무기의 행동을 바꾸는 Perk가 붙습니다. Combat Item은 무기 교체 후에도 유지되는 플레이어 빌드 아이템입니다.
-- 무기와 아이템은 처치·구역 복구·비행 표적 미션에서 공유 실물로 떨어집니다. 코인·자판기·상점·Recycler, 화면형 카드 상점, XP와 파티 레벨은 데모 전에 게임 규칙에서 제거했습니다.
+각 문서는 "문제 → 제약 → 선택한 구조 → 검토한 대안과 기각 이유 → 검증 → 한계와 남은 일" 순서로 씁니다. 설계 승인, 구현, 실행 검증, 미검증은 구분해 적었습니다. 04는 현재 진행 중인 설계라 "현재 상태와 미검증 항목"을 따로 두었습니다.
 
-```mermaid
-flowchart LR
-    Data["공유 콘텐츠 정의"] --> Rules["서버 게임 규칙"]
-    Input["클라이언트 입력·UI"] --> Request["소유 객체를 통한 요청"]
-    Request --> Rules
-    Rules --> Zones["구역 복구 상태"]
-    Rules --> Personal["개인 상태·무기 인스턴스"]
-    Rules --> Ledger["월드 전리품 소유권·공급"]
-    Rules --> Swarm["적 풀·공유 길찾기"]
-    Zones --> View["복제 상태·로컬 표현"]
-    Personal --> View
-    Ledger --> View
-    View --> Input
-```
+`C++` · `Gameplay Ability System` · `Server Authority` · `Client Prediction` · `Data Assets` · `Deterministic Roll` · `Automation Framework` · `Unreal Insights` · `AI-assisted Development`
 
-## 제작 경계
+**기준일: 2026-11-18.** [공개 범위와 권리 고지](NOTICE.md)
 
-엔진의 Gameplay Ability System(GAS: 능력·효과 프레임워크), CharacterMovementComponent(CMC: 캐릭터 이동·네트워크 예측), 복제와 CommonUI를 기반으로 사용합니다. 공유 탐색, 클래스별 적 풀, 구역 복구 상태, 전리품 정본·공급과 전투 이벤트의 수명·예산 관리, 관전 표현은 프로젝트의 구현 영역입니다. 외부 반동·무기 표현 솔루션과 구매 에셋은 기반 기술·콘텐츠로 사용하며 해당 제품의 제작을 개인 성과에 포함하지 않습니다. 소스 코드·코드 발췌·실행 파일·구매 에셋은 공개하지 않습니다.
-
-각 사례는 설계 승인, 코드 구현, 실행 검증과 미검증 범위를 구분해 적었습니다. 데모 완성은 기능 범위의 완성을 뜻하며, 4인 원격 네트워크·장시간 성능처럼 기록이 없는 항목은 [현황표](docs/08-current-state.md)와 [검증 문서](docs/05-verification.md)에 남은 범위로 표시했습니다.
-
-**English overview:** A documentation-only programming portfolio for *ART: Arcade Reclamation Team* (codename FPSRoguelite), an Unreal Engine 1-4 player co-op FPS roguelite horde shooter. The public demo was completed on 2026-10-23; the Steam store page is under review. Case studies cover shared navigation and enemy pooling, server-authoritative zone restoration, weapon-instance growth and currency-free supply, bounded combat events, predicted movement, and non-replicated first-person spectating. A separate document describes the AI-assisted workflow: delegated implementation under written specs, independent plan and pre-merge reviews for high-risk changes, and direct verification of every agent report. Design, implementation and verified behavior are distinguished explicitly. No source code or assets are distributed.
+**English overview:** A documentation-only programming portfolio for *ProjectEGO* (repository name FPSRoguelite), an Unreal Engine 5.8 co-op FPS. The current stage is a shared-body co-op FPS in which one to four players take turns driving a single body; the previous stage was a co-op style-rank FPS prototype whose movement, fire and engine-foundation code carried over. The seven documents cover single-owner movement state, separation of server-authoritative hit decisions from owner-predicted presentation, a data-driven parts build with deterministic rolls, ownership of the shared body (in progress, with open measurements), room-save protection, debugging and measurement cases, and the AI-assisted workflow. No source code or assets are distributed, and no demo has been released.
